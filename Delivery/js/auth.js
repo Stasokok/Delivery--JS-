@@ -6,6 +6,7 @@ const userName = document.querySelector('.user-name'); // подключение
 const logInForm = document.getElementById('logInForm'); // подключение отправки формы
 const inputLogin = document.getElementById('login'); //подключение поля ввода логина
 const inputPassword = document.getElementById('password'); //подключение поля ввода пароля
+const buttonCart = document.querySelector('.button-cart'); //подключение кнопки корзины
 
 const emptyLogin = () => {
     buttonAuth.style.display = 'flex';
@@ -27,6 +28,7 @@ const login = (user) => {
 
     buttonOut.style.display = 'flex';
     userName.style.display = 'flex';
+    buttonCart.style.display = 'flex';
 
     userName.textContent = user.login;
     modalAuth.style.display = 'none';
@@ -44,6 +46,7 @@ const logOut = () => {
 
     buttonOut.style.display = 'none';
     userName.style.display = 'none';
+    buttonCart.style.display = 'none';
 
     userName.textContent = '';
 

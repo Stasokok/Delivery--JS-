@@ -1,5 +1,7 @@
 const cardsMenu = document.querySelector('.cards-menu');
 
+const cartArray = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) :[];
+
 const changeTitle = (restaurant) => {
     const restaurantTitle = document.querySelector('.restaurant-title');
     const restaurantRating = document.querySelector('.rating');
@@ -11,8 +13,26 @@ const changeTitle = (restaurant) => {
     restaurantPrice.textContent = `От ${restaurant.price} ₽`;
     restaurantCategory.textContent = restaurant.kitchen;
 
-}
+};
 
+// изменение шапки сайта при переходе в магазин
+
+const addToCart = (cartItem) => {
+    if (cartArray.some((item) => item.id === cartItem.id)) {
+        cartArray.map((item => {
+            if (item.id === cartItem.id) {
+                item.count++
+            }
+        }))
+    }else {
+        cartArray.push(cartItem);
+    }
+    
+
+    localStorage.setItem('cart', JSON.stringify(cartArray));
+
+};
+//добавление итемов в корзину
 
 const renderItems = (data) => {
     data.forEach(({ id, name, description, price, image }) => {
@@ -36,6 +56,17 @@ const renderItems = (data) => {
 							</div>
 						</div>
         `;
+
+        div.querySelector('.button-card-text').addEventListener('click', () => {
+            const cartItem = {
+                name: name,
+                id: id,
+                price: price,
+                count: 1
+            };
+
+            addToCart(cartItem);
+        })
 
         cardsMenu.append(div);
     });
